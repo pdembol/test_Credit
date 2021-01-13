@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: test
+
+server:
+  servlet:
+    context-path: "/api"
+    address: 0.0.0.0
+
