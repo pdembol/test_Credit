@@ -5,7 +5,7 @@ app:
     min: 3000
   # max and min period of loan in months.
   loanPeriod:
-    maxMonths: 48
-    minMonths: 3
+    max: 48
+    min: 3
   #the maximum duration of the repayment extension when applying .
   loanMaxExtendTime: 6

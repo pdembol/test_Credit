@@ -1,4 +1,4 @@
-package com.pd.testCredit.data.model;
+package com.pd.testCredit.feature.loan.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoanApplication implements Serializable {
-
     private String    name;
     private String    surname;
     private String    idNumber;

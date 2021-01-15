@@ -1,4 +1,4 @@
-package com.pd.testCredit.data.model;
+package com.pd.testCredit.feature.loan.entity;
 
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class LoanDetails extends LoanApplication implements Serializable {
     private Timestamp lastInstallmentDate;
 
     @Builder
-    LoanDetails(
+    public LoanDetails(
             String    name,
             String    surname,
             String    idNumber,

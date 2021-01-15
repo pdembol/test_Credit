@@ -1,7 +1,7 @@
-package com.pd.testCredit.features.loan;
+package com.pd.testCredit.feature.loan;
 
-import com.pd.testCredit.data.model.LoanDetails;
-import com.pd.testCredit.data.source.BasicInMemoryRepository;
+import com.pd.testCredit.feature.loan.entity.LoanDetails;
+import com.pd.testCredit.core.data.source.BasicInMemoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Scope;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -19,13 +20,13 @@ public class LoanRepository implements BasicInMemoryRepository<LoanDetails> {
     List<LoanDetails> storedObjects = new ArrayList<>();
 
     @Override
-    public LoanDetails getOne(@NotNull UUID id) {
+    public Optional<LoanDetails> getOne(@NotNull UUID id) {
         int idx = findIndexById(id);
         if(-1 != idx){
-            return storedObjects.get(idx);
+            return Optional.ofNullable(storedObjects.get(idx));
         } else {
             log.error("loan not found");
-            return null;
+            return Optional.empty();
         }
     }
 
