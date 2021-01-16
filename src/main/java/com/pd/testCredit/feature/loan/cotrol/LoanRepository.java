@@ -48,6 +48,10 @@ public class LoanRepository implements BasicInMemoryRepository<LoanDetails> {
         }
     }
 
+    public void clear(){
+        storedObjects.clear();
+    }
+
 
     private int findIndexById(UUID id) {
         for (int i = 0; i < storedObjects.size(); i++) {
