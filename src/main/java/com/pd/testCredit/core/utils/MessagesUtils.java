@@ -4,7 +4,9 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-
+/**
+ * Class which helps getting messages from bundle with parameters
+ */
 public class MessagesUtils {
     private static final String BUNDLE_NAME = "messages";
 

@@ -1,14 +1,10 @@
-package com.pd.testCredit.feature.loan;
-
+package com.pd.testCredit.feature.loan.cotrol;
 
 import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -23,13 +19,13 @@ public class LoanController {
 
     @PostMapping("/submit")
     public LoanDetails submitApplication(@RequestBody LoanApplication loanApplication) {
-        log.debug(String.format("Requested loan application for %s", loanApplication.toString()));
+        log.info("Requested loan application accepted for " + loanApplication.toString());
         return loanService.submitApplication(loanApplication);
     }
 
-    @PostMapping("/extend")
+    @PutMapping("/extend")
     public LoanDetails submitExtension(@RequestBody ExtendApplication extendApplication) {
-        log.debug(String.format("Requested loan extension application for %s", extendApplication.toString()));
+        log.info("Requested loan extension application accepted for " + extendApplication.toString());
         return loanService.submitExtension(extendApplication);
     }
 

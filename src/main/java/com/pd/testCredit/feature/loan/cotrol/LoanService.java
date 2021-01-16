@@ -1,30 +1,32 @@
-package com.pd.testCredit.feature.loan;
+package com.pd.testCredit.feature.loan.cotrol;
 
-import com.pd.testCredit.core.validation.CommonValidator;
 import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Controller
 public class LoanService {
 
     private final LoanRepository loanRepository;
-    private final CommonValidator commonValidator;
 
-    public LoanService(LoanRepository loanRepository,
-                       CommonValidator commonValidator) {
+    public LoanService(LoanRepository loanRepository) {
         this.loanRepository = loanRepository;
-        this.commonValidator = commonValidator;
     }
 
     public LoanDetails submitApplication(LoanApplication loanApplication) {
 
-        commonValidator.validateTime();
+        log.info("Loan details calculating");
+
         LoanDetails details = LoanMapper.mapAndCalculateLoanDetails(loanApplication);
+
+        log.info("Loan details saving");
+
         loanRepository.insert(details);
 
         return details;
@@ -32,10 +34,15 @@ public class LoanService {
 
     public LoanDetails submitExtension(ExtendApplication extendApplication) {
 
-        commonValidator.validateTime();
+        log.info("Loan details with extension calculating");
+
         LoanDetails details = LoanMapper.mapAndCalculateLoanExtension(
                 loanRepository.getOne(extendApplication.getId()),extendApplication);
+
+        log.info("New loan details saving");
+
         loanRepository.update(details);
+
         return details;
     }
 

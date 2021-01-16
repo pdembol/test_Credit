@@ -1,4 +1,4 @@
-package com.pd.testCredit.feature.loan;
+package com.pd.testCredit.feature.loan.cotrol;
 
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import com.pd.testCredit.core.data.source.BasicInMemoryRepository;

@@ -3,7 +3,9 @@ package com.pd.testCredit.core.validation;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-
+/**
+ * Abstract class which defines construction of entities validators
+ */
 public abstract class ValidatorAdapter<T> implements Validator {
 
     @Override
