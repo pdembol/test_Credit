@@ -44,7 +44,8 @@ public class LoanControllerTest {
 
     @Test
     public void should_return_created_loan_details() throws Exception {
-       LoanApplication application =  LoanApplicationObjectsFactory.getValidLoanApplication(12,50000);
+       LoanApplication application =  LoanApplicationObjectsFactory
+               .getValidLoanApplication(12,50000);
 
         mockMvc.perform(post("/loan/submit")
                 .content(mapper.writeValueAsString(application))
@@ -57,9 +58,12 @@ public class LoanControllerTest {
 
         LocalDate localNow = LocalDate.now(LOCAL_TIME_ZONE);
 
-        LoanApplication application =  LoanApplicationObjectsFactory.getValidLoanApplication(12,50000);
-        LoanDetails details = LoanDetailsObjectsFactory.getValidNotExtendedLoanApplication(12,50000,localNow);
-        when(loanService.submitApplication(application)).thenReturn(details);
+        LoanApplication application =  LoanApplicationObjectsFactory
+                .getValidLoanApplication(12,50000);
+        LoanDetails details = LoanDetailsObjectsFactory
+                .getValidNotExtendedLoanApplication(12,50000,localNow);
+        when(loanService.submitApplication(application))
+                .thenReturn(details);
 
         ExtendApplication extendApplication =  new ExtendApplication(details.getId(),4);
 

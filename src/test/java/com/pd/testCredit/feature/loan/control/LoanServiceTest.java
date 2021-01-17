@@ -17,7 +17,8 @@ public class LoanServiceTest extends BaseTestWithData {
     @Test
     public void shouldAcceptLoanAndReturnCorrectlyCalculatedDetails() {
         //given:
-        LoanApplication application = LoanApplicationObjectsFactory.getValidLoanApplication(10,20000);
+        LoanApplication application = LoanApplicationObjectsFactory
+                .getValidLoanApplication(10,20000);
         LocalDate nowDate = LocalDate.now(LOCAL_TIME_ZONE);
 
         //when:
@@ -35,7 +36,8 @@ public class LoanServiceTest extends BaseTestWithData {
     public void shouldAcceptLoanExtensionAndReturnCorrectlyCalculatedDetails() {
         //given:
         int newLoanPeriod = 5;
-        ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(newLoanPeriod);
+        ExtendApplication extendApplication = ExtendApplicationObjectsFactory
+                .getValidTestExtendApplication(newLoanPeriod);
         LocalDate nowDate = LocalDate.now(LOCAL_TIME_ZONE);
             //mocked in db applicationDate
         LocalDate pastDate = nowDate.minusMonths(1).minusDays(5);
@@ -44,13 +46,15 @@ public class LoanServiceTest extends BaseTestWithData {
         LoanDetails details = loanService.submitExtension(extendApplication);
 
         //then:
-        assertEquals(MathUtils.roundToTwoDecimals((details.getTotalAmount()-details.getPaidAmount())/details.getRemainingInstallments()), details.getAmountOfInstallment());
+        assertEquals(MathUtils.roundToTwoDecimals((details.getTotalAmount()-details.getPaidAmount())
+                /details.getRemainingInstallments()), details.getAmountOfInstallment());
         assertEquals(53500, details.getTotalAmount());
         assertEquals(50000, details.getLoanAmount());
         assertEquals(12+newLoanPeriod, details.getLoanPeriod());
         assertEquals(11+newLoanPeriod, details.getRemainingInstallments());
         assertTrue(details.getIsExtended());
-        assertEquals(pastDate.plusMonths(12+newLoanPeriod).toString(),details.getLastInstallmentDate().toString());
+        assertEquals(pastDate.plusMonths(12+newLoanPeriod).toString(),
+                details.getLastInstallmentDate().toString());
     }
 
 

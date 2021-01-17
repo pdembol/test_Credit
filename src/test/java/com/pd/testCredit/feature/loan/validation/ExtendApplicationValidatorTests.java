@@ -29,7 +29,8 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
     @Test
     public void shouldAcceptExtendApplication() {
         //given:
-        ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(4);
+        ExtendApplication extendApplication = ExtendApplicationObjectsFactory
+                .getValidTestExtendApplication(4);
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
         //when:
@@ -42,7 +43,8 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
     @Test
     public void shoulRejectApplicationBecauseApplicationAlreadyExtended() {
         //given:
-        ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(4);
+        ExtendApplication extendApplication = ExtendApplicationObjectsFactory
+                .getValidTestExtendApplication(4);
         extendApplication.setId(UUIDSFactory.uuid2);
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
@@ -57,7 +59,8 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
     @Test
     public void shouldRejectApplicationBecauseLoanToExtendNotFound() {
         //given:
-        ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(4);
+        ExtendApplication extendApplication = ExtendApplicationObjectsFactory
+                .getValidTestExtendApplication(4);
         extendApplication.setId(UUID.randomUUID());
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
@@ -74,7 +77,8 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
     @Test
     public void shouldRejectApplicationBecauseMaxExtendTimeIsExceeded() {
         //given:
-        ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(100);
+        ExtendApplication extendApplication = ExtendApplicationObjectsFactory
+                .getValidTestExtendApplication(100);
         extendApplication.setId(UUIDSFactory.uuid1);
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 

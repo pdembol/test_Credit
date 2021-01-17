@@ -53,12 +53,14 @@ public class ExtendApplicationValidator extends ValidatorAdapter<ExtendApplicati
         Optional<LoanDetails> storedLoanApplication = loanService.getLoan(extendApplication.getId());
 
         if(storedLoanApplication.isEmpty()){
-            errors.rejectValue("id", "form.id.notExist", MessagesUtils.msg("error.notExist",
+            errors.rejectValue("id", "form.id.notExist",
+                    MessagesUtils.msg("error.notExist",
                     loanMaxExtendTime));
         } else {
             LoanDetails details = storedLoanApplication.get();
             if(details.getIsExtended()){
-                errors.rejectValue("id", "form.id.alreadyExtended", MessagesUtils.msg("error.alreadyExtended",
+                errors.rejectValue("id", "form.id.alreadyExtended",
+                        MessagesUtils.msg("error.alreadyExtended",
                         loanMaxExtendTime));
             }
         }

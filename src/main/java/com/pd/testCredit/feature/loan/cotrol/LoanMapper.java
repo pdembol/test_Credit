@@ -32,7 +32,8 @@ public class LoanMapper {
         LocalDate firstInstallmentDate = localNow.plusMonths(1);
 
         // assumed paying same day every month
-        LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanApplication.getLoanPeriod()-1);
+        LocalDate lastInstallmentDate = firstInstallmentDate
+                .plusMonths(loanApplication.getLoanPeriod()-1);
 
         return LoanDetails.builder()
                 .name(loanApplication.getName())

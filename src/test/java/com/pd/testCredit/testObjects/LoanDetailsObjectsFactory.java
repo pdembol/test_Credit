@@ -7,7 +7,8 @@ import java.time.LocalDate;
 
 public class LoanDetailsObjectsFactory {
 
-    public static LoanDetails getValidNotExtendedLoanApplication(Integer loanPeriod, Integer loanAmount, LocalDate applicationDate) {
+    public static LoanDetails getValidNotExtendedLoanApplication(Integer loanPeriod, Integer loanAmount,
+                                                                 LocalDate applicationDate) {
 
         float totalAmount = (float) 107 * loanAmount / 100;
         LocalDate firstInstallmentDate = applicationDate.plusMonths(1);
@@ -33,7 +34,8 @@ public class LoanDetailsObjectsFactory {
 
     }
 
-    public static LoanDetails getValidExtendedLoanApplication(Integer loanPeriod, Integer loanAmount, LocalDate applicationDate) {
+    public static LoanDetails getValidExtendedLoanApplication(Integer loanPeriod,
+                                                              Integer loanAmount, LocalDate applicationDate) {
 
         float totalAmount = (float) 107 * loanAmount / 100;
         LocalDate firstInstallmentDate = applicationDate.plusMonths(1);

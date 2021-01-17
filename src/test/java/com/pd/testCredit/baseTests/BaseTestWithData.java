@@ -32,8 +32,10 @@ public class BaseTestWithData {
         LocalDate pastDate = nowDate.minusMonths(1).minusDays(5);
 
 
-        LoanDetails detailsNotExtended = LoanDetailsObjectsFactory.getValidNotExtendedLoanApplication(12,50000,pastDate);
-        LoanDetails detailsExtended = LoanDetailsObjectsFactory.getValidExtendedLoanApplication(12,50000,pastDate);
+        LoanDetails detailsNotExtended = LoanDetailsObjectsFactory
+                .getValidNotExtendedLoanApplication(12,50000,pastDate);
+        LoanDetails detailsExtended = LoanDetailsObjectsFactory
+                .getValidExtendedLoanApplication(12,50000,pastDate);
 
         loanRepository.insert(detailsNotExtended);
         loanRepository.insert(detailsExtended);
