@@ -20,7 +20,10 @@ public class LoanController {
     @PostMapping("/submit")
     public LoanDetails submitApplication(@RequestBody LoanApplication loanApplication) {
         log.info("Requested loan application accepted for " + loanApplication.toString());
-        return loanService.submitApplication(loanApplication);
+
+        LoanDetails details = loanService.submitApplication(loanApplication);
+
+        return details;
     }
 
     @PutMapping("/extend")

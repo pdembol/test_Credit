@@ -3,7 +3,7 @@ package com.pd.testCredit.feature.loan.validation;
 import com.pd.testCredit.core.validation.CommonValidator;
 import com.pd.testCredit.core.validation.ValidatorAdapter;
 import com.pd.testCredit.core.utils.MessagesUtils;
-import com.pd.testCredit.feature.loan.entity.LoanDetails;
+import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,13 +18,7 @@ import org.springframework.validation.Errors;
  */
 @Slf4j
 @Component
-public class LoanApplicationValidator extends ValidatorAdapter<LoanDetails> {
-
-    private final CommonValidator commonValidator;
-
-    LoanApplicationValidator(CommonValidator commonValidator){
-        this.commonValidator = commonValidator;
-    }
+public class LoanApplicationValidator extends ValidatorAdapter<LoanApplication> {
 
     @Value("${app.loanAmount.max}")
     private Integer loanAmountMax;
@@ -38,41 +32,47 @@ public class LoanApplicationValidator extends ValidatorAdapter<LoanDetails> {
     @Value("${app.loanPeriod.min}")
     private Integer loanPeriodMin;
 
-    @Override
-    public Class<LoanDetails> isSupported() {
-        return LoanDetails.class;
+    private CommonValidator commonValidator;
+
+    public LoanApplicationValidator(CommonValidator commonValidator){
+        this.commonValidator = commonValidator;
     }
 
     @Override
-    public void checkValid(LoanDetails details, Errors errors) {
+    public Class<LoanApplication> isSupported() {
+        return LoanApplication.class;
+    }
+
+    @Override
+    public void checkValid(LoanApplication application, Errors errors) {
 
         log.info("Validating loan application ...");
 
         commonValidator.validateTimeAndAmount(
-                "loanAmount",details.getLoanAmount(),
+                "loanAmount",application.getLoanAmount(),
                 loanAmountMax,
                 MessagesUtils.msg("error.tooLateAndTooMuch"),errors);
 
-        commonValidator.validateMax(
-                "loanAmount",details.getLoanAmount(),
+        CommonValidator.validateMax(
+                "loanAmount",application.getLoanAmount(),
                 loanAmountMax,
                 MessagesUtils.msg("error.loanAmount.maxExceeded",
                         loanAmountMax),errors);
 
-        commonValidator.validateMin(
-                "loanAmount",details.getLoanAmount(),
+        CommonValidator.validateMin(
+                "loanAmount",application.getLoanAmount(),
                 loanAmountMin,
                 MessagesUtils.msg("error.loanAmount.minExceeded",
                         loanAmountMin),errors);
 
-        commonValidator.validateMax(
-                "loanPeriod",details.getLoanPeriod(),
+        CommonValidator.validateMax(
+                "loanPeriod",application.getLoanPeriod(),
                 loanPeriodMax,
                 MessagesUtils.msg("error.loanPeriod.maxExceeded",
                         loanPeriodMax),errors);
 
-        commonValidator.validateMin(
-                "loanPeriod",details.getLoanPeriod(),
+        CommonValidator.validateMin(
+                "loanPeriod",application.getLoanPeriod(),
                 loanPeriodMin,
                 MessagesUtils.msg("error.loanPeriod.minExceeded",
                         loanPeriodMin),errors);

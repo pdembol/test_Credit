@@ -3,7 +3,6 @@ package com.pd.testCredit.feature.loan.entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -31,15 +30,15 @@ public class LoanDetails extends LoanApplication implements Serializable {
     /**
      * Amount of one installment
      */
-    private Integer amountOfInstallment;
+    private Float amountOfInstallment;
     /**
      * Total amount to pay
      */
-    private Integer totalAmount;
+    private Float totalAmount;
     /**
      * Amount already paid amount
      */
-    private Integer paidAmount;
+    private Float paidAmount;
     /**
      * Number of remaining installments
      */
@@ -67,9 +66,9 @@ public class LoanDetails extends LoanApplication implements Serializable {
             UUID      id,
             Integer   interest,
             Boolean   isExtended,
-            Integer   amountOfInstallment,
-            Integer   totalAmount,
-            Integer   paidAmount,
+            Float   amountOfInstallment,
+            Float   totalAmount,
+            Float   paidAmount,
             Integer   remainingInstallments,
             Date dateOfApplication,
             Date firstInstallmentDate,

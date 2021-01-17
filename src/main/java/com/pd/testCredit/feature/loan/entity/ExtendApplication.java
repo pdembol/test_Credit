@@ -1,7 +1,6 @@
 package com.pd.testCredit.feature.loan.entity;
 
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.UUID;
 

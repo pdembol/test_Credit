@@ -1,12 +1,13 @@
 package com.pd.testCredit.feature.loan.cotrol;
 
 import com.pd.testCredit.core.exceptions.ApplicationNotExistException;
+import com.pd.testCredit.core.utils.MathUtils;
 import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import lombok.extern.slf4j.Slf4j;
-
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -24,11 +25,11 @@ public class LoanMapper {
 
         log.debug("Calculating new loan details ...");
 
-        int totalAmount = 107 * loanApplication.getLoanAmount() / 100;
+        float totalAmount = (float) 107 * loanApplication.getLoanAmount() / 100;
         LocalDate localNow = LocalDate.now(LOCAL_TIME_ZONE);
 
-        // assumed 30 days of waiting, for first installment
-        LocalDate firstInstallmentDate = localNow.plusDays(30);
+        // assumed 1 month of waiting, for first installment
+        LocalDate firstInstallmentDate = localNow.plusMonths(1);
 
         // assumed paying same day every month
         LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanApplication.getLoanPeriod()-1);
@@ -42,9 +43,9 @@ public class LoanMapper {
                 .id(UUID.randomUUID())
                 .interest(7)
                 .isExtended(false)
-                .amountOfInstallment(totalAmount/loanApplication.getLoanPeriod())
-                .totalAmount(totalAmount)
-                .paidAmount(0)
+                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount/loanApplication.getLoanPeriod()))
+                .totalAmount(MathUtils.roundToTwoDecimals(totalAmount))
+                .paidAmount((float) 0)
                 .remainingInstallments(loanApplication.getLoanPeriod())
                 .dateOfApplication(Date.valueOf(localNow))
                 .firstInstallmentDate(Date.valueOf(firstInstallmentDate))
@@ -65,28 +66,30 @@ public class LoanMapper {
             int newLoanPeriod = details.getLoanPeriod()+extendApplication.getLoanPeriod();
 
             //calculating how many installments have been paid off
-            LocalDate firstInstallmentDate = details.getFirstInstallmentDate()
-                    .toInstant().atZone(LOCAL_TIME_ZONE).toLocalDate();
+            LocalDate dateOfApplication = Instant.ofEpochMilli(details
+                    .getDateOfApplication().getTime()).atZone(LOCAL_TIME_ZONE).toLocalDate();
 
-            Period period = Period.between(firstInstallmentDate, localNow);
+            LocalDate lastInstallmentDate = Instant.ofEpochMilli(details
+                    .getLastInstallmentDate().getTime()).atZone(LOCAL_TIME_ZONE).toLocalDate();
+
+            Period period = Period.between(dateOfApplication, localNow);
             Integer numberOfPaidInstallments = period.getMonths();
 
             //calculating how much money have been paid off and how much is left to be paid
-            Integer paidAmount = details.getTotalAmount() - (numberOfPaidInstallments * details.getAmountOfInstallment());
-            Integer amountLeftToPay = details.getTotalAmount() - paidAmount;
-            Integer installmentsLeftToPay = details.getLoanPeriod() - numberOfPaidInstallments;
+            Float paidAmount = numberOfPaidInstallments * details.getAmountOfInstallment();
+            Float amountLeftToPay = details.getTotalAmount() - paidAmount;
             Integer newInstallmentsNumber = newLoanPeriod - numberOfPaidInstallments;
-            Integer newInstallmentAmount = amountLeftToPay / newInstallmentsNumber;
+            Float newInstallmentAmount = amountLeftToPay / newInstallmentsNumber;
 
             //calculating new last installment date
-            LocalDate newLastInstallmentDate = firstInstallmentDate.plusMonths(extendApplication.getLoanPeriod());
+            LocalDate newLastInstallmentDate = lastInstallmentDate.plusMonths(extendApplication.getLoanPeriod());
 
             //setting new loan details
             details.setLoanPeriod(newLoanPeriod);
             details.setIsExtended(true);
-            details.setAmountOfInstallment(newInstallmentAmount);
-            details.setPaidAmount(paidAmount);
-            details.setRemainingInstallments(installmentsLeftToPay);
+            details.setAmountOfInstallment(MathUtils.roundToTwoDecimals(newInstallmentAmount));
+            details.setPaidAmount(MathUtils.roundToTwoDecimals(paidAmount));
+            details.setRemainingInstallments(newInstallmentsNumber);
             details.setLastInstallmentDate(Date.valueOf(newLastInstallmentDate));
             return details;
 

@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-
 import java.util.Optional;
 
 /**
@@ -24,17 +23,14 @@ import java.util.Optional;
 @Component
 public class ExtendApplicationValidator extends ValidatorAdapter<ExtendApplication> {
 
-    private final CommonValidator commonValidator;
     private final LoanService loanService;
 
     @Value("${app.loanMaxExtendTime}")
     private Integer loanMaxExtendTime;
 
     ExtendApplicationValidator(
-            CommonValidator commonValidator,
             LoanService loanService
     ){
-        this.commonValidator = commonValidator;
         this.loanService = loanService;
     }
 
@@ -48,7 +44,7 @@ public class ExtendApplicationValidator extends ValidatorAdapter<ExtendApplicati
 
         log.info("Validating loan extend application ...");
 
-        commonValidator.validateMax(
+        CommonValidator.validateMax(
                 "loanPeriod",extendApplication.getLoanPeriod(),
                 loanMaxExtendTime,
                 MessagesUtils.msg("error.loanPeriod.maxExtendTimeExceeded",

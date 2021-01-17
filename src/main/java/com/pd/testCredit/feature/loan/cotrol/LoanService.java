@@ -4,13 +4,12 @@ import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-
+import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-@Controller
+@Service
 public class LoanService {
 
     private final LoanRepository loanRepository;
