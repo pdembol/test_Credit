@@ -1,7 +1,8 @@
 package com.pd.testCredit.feature.loan.entity;
 
 import lombok.*;
-import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -11,16 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class ExtendApplication implements Serializable {
+public class ExtendApplication {
     /**
      * Id of application which is requested to extend
      */
-    @NonNull
+    @NotNull
     private UUID id;
     /**
      * Period of extension
      */
-    @NonNull
+    @NotNull
     private Integer loanPeriod;
 
 }

@@ -23,15 +23,20 @@ import java.util.Optional;
 @Component
 public class ExtendApplicationValidator extends ValidatorAdapter<ExtendApplication> {
 
-    private final LoanService loanService;
-
     @Value("${app.loanMaxExtendTime}")
     private Integer loanMaxExtendTime;
+
+    private final LoanService loanService;
 
     ExtendApplicationValidator(
             LoanService loanService
     ){
         this.loanService = loanService;
+    }
+
+    @Override
+    public void validate(Object object, Errors errors) {
+        super.validate(object, errors);
     }
 
     @Override

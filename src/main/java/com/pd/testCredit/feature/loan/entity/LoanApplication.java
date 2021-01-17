@@ -1,7 +1,8 @@
 package com.pd.testCredit.feature.loan.entity;
 
 import lombok.*;
-import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity containing fields of loan application
@@ -10,31 +11,31 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoanApplication implements Serializable {
+public class LoanApplication {
     /**
      * The applicants name
      */
-    @NonNull
+    @NotNull
     private String    name;
     /**
      * The applicants surname
      */
-    @NonNull
+    @NotNull
     private String    surname;
     /**
      * The applicants id number
      */
-    @NonNull
+    @NotNull
     private String    idNumber;
     /**
      * Requested loan amount
      */
-    @NonNull
+    @NotNull
     private Integer   loanAmount;
     /**
      * Requested loan period
      */
-    @NonNull
+    @NotNull
     private Integer   loanPeriod;
 
 }

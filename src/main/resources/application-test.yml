@@ -1,0 +1,11 @@
+app:
+  # max and min amount of loan in PLN.
+  loanAmount:
+    max: 100000
+    min: 3000
+  # max and min period of loan in months.
+  loanPeriod:
+    max: 48
+    min: 3
+  #the maximum duration of the repayment extension when applying .
+  loanMaxExtendTime: 6

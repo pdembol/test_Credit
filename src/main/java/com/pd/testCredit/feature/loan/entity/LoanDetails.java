@@ -3,7 +3,6 @@ package com.pd.testCredit.feature.loan.entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-public class LoanDetails extends LoanApplication implements Serializable {
+public class LoanDetails extends LoanApplication {
 
     /**
      * The loan id which is assigned when request is accepted
