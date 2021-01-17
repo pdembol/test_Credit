@@ -34,16 +34,17 @@ public class LoanServiceTest extends BaseTestWithData {
     @Test
     public void shouldAcceptLoanExtensionAndReturnCorrectlyCalculatedDetails() {
         //given:
-        Integer newLoanPeriod = 4;
+        int newLoanPeriod = 5;
         ExtendApplication extendApplication = ExtendApplicationObjectsFactory.getValidTestExtendApplication(newLoanPeriod);
         LocalDate nowDate = LocalDate.now(LOCAL_TIME_ZONE);
-        //mocked in db applicationDate
+            //mocked in db applicationDate
         LocalDate pastDate = nowDate.minusMonths(1).minusDays(5);
+
         //when:
         LoanDetails details = loanService.submitExtension(extendApplication);
 
         //then:
-        assertEquals((float) 3269.44, MathUtils.roundToTwoDecimals(details.getAmountOfInstallment()));
+        assertEquals(MathUtils.roundToTwoDecimals((details.getTotalAmount()-details.getPaidAmount())/details.getRemainingInstallments()), details.getAmountOfInstallment());
         assertEquals(53500, details.getTotalAmount());
         assertEquals(50000, details.getLoanAmount());
         assertEquals(12+newLoanPeriod, details.getLoanPeriod());
