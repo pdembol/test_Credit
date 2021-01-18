@@ -16,7 +16,7 @@ import java.time.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LoanApplicationValidatorTests {
+public class LoanApplicationValidatorTest {
 
     private LoanApplicationValidator loanApplicationValidator;
 
@@ -41,11 +41,11 @@ public class LoanApplicationValidatorTests {
     public void shouldAcceptApplication() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(10,20000);
+                .getValidLoanApplication(10, 20000);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertFalse(errors.hasErrors());
@@ -56,11 +56,11 @@ public class LoanApplicationValidatorTests {
     public void shouldRejectApplicationBecauseOfTooShortPeriod() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(2,20000);
+                .getValidLoanApplication(2, 20000);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -71,11 +71,11 @@ public class LoanApplicationValidatorTests {
     public void shouldRejectApplicationBecauseOfTooLongPeriod() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(100,20000);
+                .getValidLoanApplication(100, 20000);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -86,11 +86,11 @@ public class LoanApplicationValidatorTests {
     public void shouldRejectApplicationBecauseOfTooLowAmount() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(10,100);
+                .getValidLoanApplication(10, 100);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -101,11 +101,11 @@ public class LoanApplicationValidatorTests {
     public void shouldRejectApplicationBecauseOfTooHighAmount() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(10,200000);
+                .getValidLoanApplication(10, 200000);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -116,17 +116,16 @@ public class LoanApplicationValidatorTests {
     public void shouldRejectApplicationBecauseRequestedMaxAmountTooLateAtNight() {
         //given:
         LoanApplication application = LoanApplicationObjectsFactory
-                .getValidLoanApplication(10,100000);
+                .getValidLoanApplication(10, 100000);
         Errors errors = new BeanPropertyBindingResult(application, "");
 
         //when:
-        loanApplicationValidator.validate(application,errors);
+        loanApplicationValidator.validate(application, errors);
 
         //then:
         assertTrue(errors.hasErrors());
         assertNotNull(errors.getFieldError("loanAmount"));
     }
-
 
 
 }

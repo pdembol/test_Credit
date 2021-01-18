@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExtendApplicationValidatorTests extends BaseTestWithData {
+public class ExtendApplicationValidatorTest extends BaseTestWithData {
 
     private ExtendApplicationValidator extendApplicationValidator;
 
@@ -34,7 +34,7 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
         //when:
-        extendApplicationValidator.validate(extendApplication,errors);
+        extendApplicationValidator.validate(extendApplication, errors);
 
         //then:
         assertFalse(errors.hasErrors());
@@ -49,7 +49,7 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
         //when:
-        extendApplicationValidator.validate(extendApplication,errors);
+        extendApplicationValidator.validate(extendApplication, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -65,7 +65,7 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
         //when:
-        extendApplicationValidator.validate(extendApplication,errors);
+        extendApplicationValidator.validate(extendApplication, errors);
 
         //then:
         assertTrue(errors.hasErrors());
@@ -83,7 +83,7 @@ public class ExtendApplicationValidatorTests extends BaseTestWithData {
         Errors errors = new BeanPropertyBindingResult(extendApplication, "");
 
         //when:
-        extendApplicationValidator.validate(extendApplication,errors);
+        extendApplicationValidator.validate(extendApplication, errors);
 
         //then:
         assertTrue(errors.hasErrors());

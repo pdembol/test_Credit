@@ -6,6 +6,7 @@ import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ public class LoanMapper {
 
         // assumed paying same day every month
         LocalDate lastInstallmentDate = firstInstallmentDate
-                .plusMonths(loanApplication.getLoanPeriod()-1);
+                .plusMonths(loanApplication.getLoanPeriod() - 1);
 
         return LoanDetails.builder()
                 .name(loanApplication.getName())
@@ -44,7 +45,7 @@ public class LoanMapper {
                 .id(UUID.randomUUID())
                 .interest(7)
                 .isExtended(false)
-                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount/loanApplication.getLoanPeriod()))
+                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount / loanApplication.getLoanPeriod()))
                 .totalAmount(MathUtils.roundToTwoDecimals(totalAmount))
                 .paidAmount((float) 0)
                 .remainingInstallments(loanApplication.getLoanPeriod())
@@ -55,16 +56,17 @@ public class LoanMapper {
     }
 
 
-    public static LoanDetails mapAndCalculateLoanExtension(Optional<LoanDetails> loanDetails, ExtendApplication extendApplication) {
+    public static LoanDetails mapAndCalculateLoanExtension(Optional<LoanDetails> loanDetails,
+                                                           ExtendApplication extendApplication) {
 
         log.debug("Recalculating loan details ...");
 
-        if(loanDetails.isPresent()){
+        if (loanDetails.isPresent()) {
             LoanDetails details = loanDetails.get();
             LocalDate localNow = LocalDate.now(LOCAL_TIME_ZONE);
 
             // calculating new total period of loan
-            int newLoanPeriod = details.getLoanPeriod()+extendApplication.getLoanPeriod();
+            int newLoanPeriod = details.getLoanPeriod() + extendApplication.getLoanPeriod();
 
             //calculating how many installments have been paid off
             LocalDate dateOfApplication = Instant.ofEpochMilli(details

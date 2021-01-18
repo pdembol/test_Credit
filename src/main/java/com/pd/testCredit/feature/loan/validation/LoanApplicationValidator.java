@@ -12,9 +12,9 @@ import org.springframework.validation.Errors;
 /**
  * Component which validates LoanApplication fields
  * Rules :
- *  - request received at night hours ( 0:00 - 6:00 ) with maximum allowed loan amount should be rejected
- *  - amount of loan must be between maximum and minimum , given in properties
- *  - period of loan must be between maximum and minimum , given in properties
+ * - request received at night hours ( 0:00 - 6:00 ) with maximum allowed loan amount should be rejected
+ * - amount of loan must be between maximum and minimum , given in properties
+ * - period of loan must be between maximum and minimum , given in properties
  */
 @Slf4j
 @Component
@@ -34,7 +34,7 @@ public class LoanApplicationValidator extends ValidatorAdapter<LoanApplication> 
 
     private CommonValidator commonValidator;
 
-    public LoanApplicationValidator(CommonValidator commonValidator){
+    public LoanApplicationValidator(CommonValidator commonValidator) {
         this.commonValidator = commonValidator;
     }
 
@@ -49,33 +49,32 @@ public class LoanApplicationValidator extends ValidatorAdapter<LoanApplication> 
         log.info("Validating loan application ...");
 
         commonValidator.validateTimeAndAmount(
-                "loanAmount",application.getLoanAmount(),
-                loanAmountMax,
-                MessagesUtils.msg("error.tooLateAndTooMuch"),errors);
+                "loanAmount", application.getLoanAmount(),
+                loanAmountMax, errors);
 
         CommonValidator.validateMax(
-                "loanAmount",application.getLoanAmount(),
+                "loanAmount", application.getLoanAmount(),
                 loanAmountMax,
                 MessagesUtils.msg("error.loanAmount.maxExceeded",
-                        loanAmountMax),errors);
+                        loanAmountMax.toString()), errors);
 
         CommonValidator.validateMin(
-                "loanAmount",application.getLoanAmount(),
+                "loanAmount", application.getLoanAmount(),
                 loanAmountMin,
                 MessagesUtils.msg("error.loanAmount.minExceeded",
-                        loanAmountMin),errors);
+                        loanAmountMin.toString()), errors);
 
         CommonValidator.validateMax(
-                "loanPeriod",application.getLoanPeriod(),
+                "loanPeriod", application.getLoanPeriod(),
                 loanPeriodMax,
                 MessagesUtils.msg("error.loanPeriod.maxExceeded",
-                        loanPeriodMax),errors);
+                        loanPeriodMax.toString()), errors);
 
         CommonValidator.validateMin(
-                "loanPeriod",application.getLoanPeriod(),
+                "loanPeriod", application.getLoanPeriod(),
                 loanPeriodMin,
                 MessagesUtils.msg("error.loanPeriod.minExceeded",
-                        loanPeriodMin),errors);
+                        loanPeriodMin.toString()), errors);
 
     }
 

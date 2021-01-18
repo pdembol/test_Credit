@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class LoanRepository implements BasicInMemoryRepository<LoanDetails> {
     @Override
     public Optional<LoanDetails> getOne(@NotNull UUID id) {
         int idx = findIndexById(id);
-        if(-1 != idx){
+        if (-1 != idx) {
             return Optional.ofNullable(storedObjects.get(idx));
         } else {
             log.error("loan not found");
@@ -38,8 +39,8 @@ public class LoanRepository implements BasicInMemoryRepository<LoanDetails> {
     @Override
     public LoanDetails update(@NotNull LoanDetails dto) {
         int idx = findIndexById(dto.getId());
-        if(-1 != idx){
-            storedObjects.set(idx,dto);
+        if (-1 != idx) {
+            storedObjects.set(idx, dto);
             return dto;
         } else {
             log.error("loan not found");
@@ -47,14 +48,14 @@ public class LoanRepository implements BasicInMemoryRepository<LoanDetails> {
         }
     }
 
-    public void clear(){
+    public void clear() {
         storedObjects.clear();
     }
 
 
     private int findIndexById(UUID id) {
         for (int i = 0; i < storedObjects.size(); i++) {
-            if(storedObjects.get(i).getId().equals(id)){
+            if (storedObjects.get(i).getId().equals(id)) {
                 return i;
             }
         }

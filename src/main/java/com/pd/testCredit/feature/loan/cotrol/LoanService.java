@@ -5,6 +5,7 @@ import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,7 +37,7 @@ public class LoanService {
         log.info("Loan details with extension calculating");
 
         LoanDetails details = LoanMapper.mapAndCalculateLoanExtension(
-                loanRepository.getOne(extendApplication.getId()),extendApplication);
+                loanRepository.getOne(extendApplication.getId()), extendApplication);
 
         log.info("New loan details saving");
 

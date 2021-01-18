@@ -3,6 +3,7 @@ package com.pd.testCredit.feature.loan.entity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -57,23 +58,23 @@ public class LoanDetails extends LoanApplication {
 
     @Builder
     public LoanDetails(
-            String    name,
-            String    surname,
-            String    idNumber,
-            Integer   loanAmount,
-            Integer   loanPeriod,
-            UUID      id,
-            Integer   interest,
-            Boolean   isExtended,
-            Float   amountOfInstallment,
-            Float   totalAmount,
-            Float   paidAmount,
-            Integer   remainingInstallments,
+            String name,
+            String surname,
+            String idNumber,
+            Integer loanAmount,
+            Integer loanPeriod,
+            UUID id,
+            Integer interest,
+            Boolean isExtended,
+            Float amountOfInstallment,
+            Float totalAmount,
+            Float paidAmount,
+            Integer remainingInstallments,
             Date dateOfApplication,
             Date firstInstallmentDate,
             Date lastInstallmentDate
-    ){
-        super(name,surname,idNumber,loanAmount,loanPeriod);
+    ) {
+        super(name, surname, idNumber, loanAmount, loanPeriod);
         this.id = id;
         this.interest = interest;
         this.isExtended = isExtended;
@@ -85,5 +86,5 @@ public class LoanDetails extends LoanApplication {
         this.paidAmount = paidAmount;
         this.remainingInstallments = remainingInstallments;
     }
-    
+
 }

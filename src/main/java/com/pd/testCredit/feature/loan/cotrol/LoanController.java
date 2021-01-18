@@ -1,12 +1,15 @@
 package com.pd.testCredit.feature.loan.cotrol;
 
+import com.pd.testCredit.core.exceptions.FormErrors;
 import com.pd.testCredit.feature.loan.entity.ExtendApplication;
 import com.pd.testCredit.feature.loan.entity.LoanApplication;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
 import com.pd.testCredit.feature.loan.validation.ExtendApplicationValidator;
 import com.pd.testCredit.feature.loan.validation.LoanApplicationValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +22,8 @@ public class LoanController {
 
     private final LoanService loanService;
 
-    @Autowired
     private LoanApplicationValidator loanApplicationValidator;
 
-    @Autowired
     private ExtendApplicationValidator extendApplicationValidator;
 
     @InitBinder("loanApplication")
@@ -35,21 +36,30 @@ public class LoanController {
         binder.addValidators(extendApplicationValidator);
     }
 
-
-    public LoanController(LoanService loanService) {
+    public LoanController(LoanService loanService,
+                          LoanApplicationValidator loanApplicationValidator,
+                          ExtendApplicationValidator extendApplicationValidator) {
         this.loanService = loanService;
+        this.loanApplicationValidator = loanApplicationValidator;
+        this.extendApplicationValidator = extendApplicationValidator;
     }
 
     @PostMapping("/submit")
-    public LoanDetails submitApplication(@Valid @RequestBody LoanApplication loanApplication) {
+    public ResponseEntity<LoanDetails> submitApplication(@Valid @RequestBody LoanApplication loanApplication, Errors errors) {
         log.info("Requested loan application accepted for " + loanApplication.toString());
-        return loanService.submitApplication(loanApplication);
+        if (errors.hasErrors()) {
+            return new ResponseEntity(new FormErrors(errors), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(loanService.submitApplication(loanApplication), HttpStatus.OK);
     }
 
     @PutMapping("/extend")
-    public LoanDetails submitExtension(@Valid @RequestBody ExtendApplication extendApplication) {
+    public ResponseEntity<LoanDetails> submitExtension(@Valid @RequestBody ExtendApplication extendApplication, Errors errors) {
         log.info("Requested loan extension application accepted for " + extendApplication.toString());
-        return loanService.submitExtension(extendApplication);
+        if (errors.hasErrors()) {
+            return new ResponseEntity(new FormErrors(errors), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(loanService.submitExtension(extendApplication), HttpStatus.OK);
     }
 
 

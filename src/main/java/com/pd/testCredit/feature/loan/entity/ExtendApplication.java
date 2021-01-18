@@ -1,8 +1,6 @@
 package com.pd.testCredit.feature.loan.entity;
 
 import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 /**
@@ -16,12 +14,10 @@ public class ExtendApplication {
     /**
      * Id of application which is requested to extend
      */
-    @NotNull
     private UUID id;
     /**
      * Period of extension
      */
-    @NotNull
     private Integer loanPeriod;
 
 }

@@ -33,9 +33,9 @@ public class BaseTestWithData {
 
 
         LoanDetails detailsNotExtended = LoanDetailsObjectsFactory
-                .getValidNotExtendedLoanApplication(12,50000,pastDate);
+                .getValidNotExtendedLoanApplication(12, 50000, pastDate);
         LoanDetails detailsExtended = LoanDetailsObjectsFactory
-                .getValidExtendedLoanApplication(12,50000,pastDate);
+                .getValidExtendedLoanApplication(12, 50000, pastDate);
 
         loanRepository.insert(detailsNotExtended);
         loanRepository.insert(detailsExtended);

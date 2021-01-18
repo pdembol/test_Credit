@@ -2,6 +2,7 @@ package com.pd.testCredit.testObjects;
 
 import com.pd.testCredit.core.utils.MathUtils;
 import com.pd.testCredit.feature.loan.entity.LoanDetails;
+
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -12,25 +13,25 @@ public class LoanDetailsObjectsFactory {
 
         float totalAmount = (float) 107 * loanAmount / 100;
         LocalDate firstInstallmentDate = applicationDate.plusMonths(1);
-        LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanPeriod-1);
+        LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanPeriod - 1);
 
         return LoanDetails.builder()
-            .name("Jimmy")
-            .surname("Tudesky")
-            .idNumber("cdp321321321")
-            .loanAmount(loanAmount)
-            .loanPeriod(loanPeriod)
-            .id(UUIDSFactory.uuid1)
-            .interest(7)
-            .isExtended(false)
-            .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount/loanPeriod))
-            .totalAmount(MathUtils.roundToTwoDecimals(totalAmount))
-            .paidAmount((float) 0)
-            .remainingInstallments(loanPeriod)
-            .dateOfApplication(Date.valueOf(applicationDate))
-            .firstInstallmentDate(Date.valueOf(firstInstallmentDate))
-            .lastInstallmentDate(Date.valueOf(lastInstallmentDate))
-            .build();
+                .name("Jimmy")
+                .surname("Tudesky")
+                .idNumber("cdp321321321")
+                .loanAmount(loanAmount)
+                .loanPeriod(loanPeriod)
+                .id(UUIDSFactory.uuid1)
+                .interest(7)
+                .isExtended(false)
+                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount / loanPeriod))
+                .totalAmount(MathUtils.roundToTwoDecimals(totalAmount))
+                .paidAmount((float) 0)
+                .remainingInstallments(loanPeriod)
+                .dateOfApplication(Date.valueOf(applicationDate))
+                .firstInstallmentDate(Date.valueOf(firstInstallmentDate))
+                .lastInstallmentDate(Date.valueOf(lastInstallmentDate))
+                .build();
 
     }
 
@@ -39,7 +40,7 @@ public class LoanDetailsObjectsFactory {
 
         float totalAmount = (float) 107 * loanAmount / 100;
         LocalDate firstInstallmentDate = applicationDate.plusMonths(1);
-        LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanPeriod-1);
+        LocalDate lastInstallmentDate = firstInstallmentDate.plusMonths(loanPeriod - 1);
 
         return LoanDetails.builder()
                 .name("John")
@@ -50,7 +51,7 @@ public class LoanDetailsObjectsFactory {
                 .id(UUIDSFactory.uuid2)
                 .interest(7)
                 .isExtended(true)
-                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount/loanPeriod))
+                .amountOfInstallment(MathUtils.roundToTwoDecimals(totalAmount / loanPeriod))
                 .totalAmount(MathUtils.roundToTwoDecimals(totalAmount))
                 .paidAmount((float) 0)
                 .remainingInstallments(loanPeriod)
